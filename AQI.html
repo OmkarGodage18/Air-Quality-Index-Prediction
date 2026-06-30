@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AQI Prediction</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f4f6f9;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            margin: auto;
+            width: 50%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px #ccc;
+        }
+
+        input {
+            margin: 5px;
+            padding: 8px;
+            width: 45%;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            color: green;
+        }
+
+        .error {
+            margin-top: 20px;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>🌍 AQI Prediction System</h1>
+
+<!-- 🔹 Prediction Form -->
+<form action="/predict" method="post">
+
+    <input type="text" name="Date" placeholder="Date" value="{{ data.get('Date', '') }}"><br>
+    <input type="text" name="City" placeholder="City" value="{{ data.get('City', '') }}"><br>
+
+    <input type="number" step="any" name="CO" placeholder="CO" value="{{ data.get('CO', '') }}">
+    <input type="number" step="any" name="CO2" placeholder="CO2" value="{{ data.get('CO2', '') }}"><br>
+
+    <input type="number" step="any" name="NO2" placeholder="NO2" value="{{ data.get('NO2', '') }}">
+    <input type="number" step="any" name="SO2" placeholder="SO2" value="{{ data.get('SO2', '') }}"><br>
+
+    <input type="number" step="any" name="O3" placeholder="O3" value="{{ data.get('O3', '') }}">
+    <input type="number" step="any" name="PM2.5" placeholder="PM2.5" value="{{ data.get('PM2.5', '') }}"><br>
+
+    <input type="number" step="any" name="PM10" placeholder="PM10" value="{{ data.get('PM10', '') }}"><br>
+
+    <button type="submit">Predict AQI</button>
+</form>
+
+<!-- 🔹 Load Specific Row -->
+<form action="/get_row" method="post">
+    <input type="number" name="row_index" placeholder="Enter row index">
+    <button type="submit">Load Row</button>
+</form>
+
+<!-- 🔹 Show Prediction -->
+{% if prediction %}
+    <div class="result">
+        {{ prediction }}
+    </div>
+{% endif %}
+
+<!-- 🔹 Show Error -->
+{% if error %}
+    <div class="error">
+        {{ error }}
+    </div>
+{% endif %}
+
+</body>
+</html> 
